@@ -1,42 +1,34 @@
 $(function() {
   //variables
-  const errorMsg = "Couldn't load news";
+  const errorMsg = "Ooops something went wrong :(";
   //objects
   const apiUrl = {
-      linkStart: "https://api.nytimes.com/svc/topstories/v2/",
-      linkEnd: ".json?api-key=",
-      apiKey: "NCDiZQkQNXxf2tNaiVx4oiQBxNeGjpx9"
-    },
-    errorMsgTags = {
-      opening: "<li class=errorMessage>",
-      closing: "</li>"
-    };
+    linkStart: "https://api.nytimes.com/svc/topstories/v2/",
+    linkEnd: ".json?api-key=",
+    apiKey: "NCDiZQkQNXxf2tNaiVx4oiQBxNeGjpx9"
+  };
+  //arrays
+  const errorMsgTags = ["<li class=errorMessage>", "</li>"];
+
   //functions
   function loadArticles(section) {
     //Does an API request and loads content depending on the result
-    //Add loading img
-    $("#loading").removeClass("loaded");
-    //Empty Content
-    $(".article-list").empty();
-    //Api Data Request
+    $("#loading").removeClass("loaded"); //Adds loading img
+    $(".article-list").empty(); //Empties the contents of the article-list
     $.ajax({
+      //Api Data Request
       method: "GET",
       url: apiUrl.linkStart + section + apiUrl.linkEnd + apiUrl.apiKey,
       dataType: "json"
     })
       .done(function(data) {
-        //Api data request Success
         processResults(data.results); //Executes necessary instructions after success
       })
       .fail(function() {
-        //Api data request Fail
-        $(".article-list").append(
-          errorMsgTags.opening + errorMsg + errorMsgTags.closing
-        );
+        $(".article-list").append(errorMsgTags[0] + errorMsg + errorMsgTags[1]); //generates hmtl line for an error message
       })
       .always(function() {
-        //Remove loading img
-        $("#loading").addClass("loaded");
+        $("#loading").addClass("loaded"); //removes loading img
       });
   }
 
@@ -53,7 +45,7 @@ $(function() {
   }
 
   function storyHtml(link, img, text) {
-    //generates html code for a li element
+    //generates html code for a li element for the article-list
     return (
       "<li class='story'><a href=" +
       link +
