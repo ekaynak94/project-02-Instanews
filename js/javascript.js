@@ -1,6 +1,7 @@
 $(function() {
   //variables
   const errorMsg = "Couldn't load news";
+  let firstSelection = true;
   //objects
   const apiUrl = {
       linkStart: "https://api.nytimes.com/svc/topstories/v2/",
@@ -12,14 +13,13 @@ $(function() {
       closing: "</li>"
     };
   //functions
-
-  // MAIN CODE
-  //Selector Event Listener
-  $(".selector-container").on("change", "#selector", function() {
-    const section = $(this).val();
+  function resizeHeader() {
+    //Resizes the header after the initial API request
+  }
+  function loadArticles(section) {
+    //Does an API request and loads content depending on the result
     //Add loading img
     $("#loading").removeClass("loaded");
-    //Resize Header if it is the first selection
     //Empty Content
     $(".article-list").empty();
     //Api Data Request
@@ -45,5 +45,19 @@ $(function() {
         //Remove loading img
         $("#loading").addClass("loaded");
       });
+  }
+  // MAIN CODE
+  //Selector Event Listener
+  $(".selector-container").on("change", "#selector", function() {
+    const sectionName = $(this).val();
+    if (sectionName !== "") {
+      //Resize Header if it is the first
+      if (firstSelection) {
+        resizeHeader();
+        firstSelection = false;
+      }
+      //Attempts to load the articles
+      loadArticles(sectionName);
+    }
   });
 });
