@@ -13,6 +13,8 @@ $(function() {
   $(".selector-container").on("change", "#selector", function() {
     const section = $(this).val();
     //Add loading img
+    $("#loading").removeClass("loaded");
+    //Resize Header if it is the first selection
     //Api Data Request
     $.ajax({
       method: "GET",
@@ -26,7 +28,9 @@ $(function() {
         );
         console.log(data);
       })
-      .fail() //Api data request Fail
-      .always(); //Remove loading img
+      .fail(function() {}) //Api data request Fail
+      .always(function() {
+        $("#loading").addClass("loaded");
+      }); //Remove loading img
   });
 });
