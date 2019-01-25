@@ -13,9 +13,6 @@ $(function() {
       closing: "</li>"
     };
   //functions
-  function resizeHeader() {
-    //Resizes the header after the initial API request
-  }
   function loadArticles(section) {
     //Does an API request and loads content depending on the result
     //Add loading img
@@ -51,11 +48,8 @@ $(function() {
   $(".selector-container").on("change", "#selector", function() {
     const sectionName = $(this).val();
     if (sectionName !== "") {
-      //Resize Header if it is the first
-      if (firstSelection) {
-        resizeHeader();
-        firstSelection = false;
-      }
+      //Resizes the header before the initial API request
+      $(".site-header").removeClass("full-sized");
       //Attempts to load the articles
       loadArticles(sectionName);
     }
