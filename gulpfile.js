@@ -8,7 +8,7 @@ const gulp = require("gulp"),
   autoprefixer = require("gulp-autoprefixer"),
   prettyError = require("gulp-prettyerror");
 
-//saves a minimized js file in build directory after linting
+//saves a minified js file in build directory after linting
 gulp.task("min-js", function() {
   return gulp
     .src("./js/*.js")
@@ -20,7 +20,7 @@ gulp.task("min-js", function() {
     .pipe(gulp.dest("./build/js"));
 });
 
-//compiles scss files and saves a minimized css file in build directory
+//compiles scss files and saves a minified css file in build directory
 gulp.task("min-css", function() {
   return gulp
     .src("./sass/*scss")
@@ -36,7 +36,7 @@ gulp.task("min-css", function() {
     .pipe(gulp.dest("./build/css"));
 });
 
-//watches for changes in js files and scss files. Runs tasks to update the minimized versions on change.
+//watches for changes in js files and scss files. Runs tasks to update the minified versions on change.
 gulp.task("watch", function(done) {
   gulp.watch("./js/*.js", gulp.series("min-js"));
   gulp.watch("./sass/*.scss", gulp.series("min-css"));
