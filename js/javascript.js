@@ -1,14 +1,15 @@
 $(function() {
-  //variables
-  const errorMsg = "Ooops something went wrong :(";
-  //objects
-  const apiUrl = {
-    linkStart: "https://api.nytimes.com/svc/topstories/v2/",
-    linkEnd: ".json?api-key=",
-    apiKey: "NCDiZQkQNXxf2tNaiVx4oiQBxNeGjpx9"
-  };
-  //arrays
-  const errorMsgTags = ["<li class=errorMessage>", "</li>"];
+  // MAIN CODE
+  //Selector Event Listener
+  $(".selector-container").on("change", "#selector", function() {
+    const sectionName = $(this).val();
+    if (sectionName !== "") {
+      //Resizes the header before the initial API request
+      $(".site-header").removeClass("full-sized");
+      //Attempts to load the articles
+      loadArticles(sectionName);
+    }
+  });
 
   //functions
   function loadArticles(section) {
@@ -18,14 +19,14 @@ $(function() {
     $.ajax({
       //Api Data Request
       method: "GET",
-      url: apiUrl.linkStart + section + apiUrl.linkEnd + apiUrl.apiKey,
+      url: getApiUrl(section),
       dataType: "json"
     })
       .done(function(data) {
         processResults(data.results); //Executes necessary instructions after success
       })
       .fail(function() {
-        $(".article-list").append(errorMsgTags[0] + errorMsg + errorMsgTags[1]); //generates hmtl line for an error message
+        $(".article-list").append(errorMessage()); //generates hmtl line for an error message
       })
       .always(function() {
         $("#loading").addClass("loaded"); //removes loading img
@@ -45,7 +46,7 @@ $(function() {
   }
 
   function storyHtml(link, img, text) {
-    //generates html code for a li element for the article-list
+    //returns html code for a li element for the article-list
     return (
       "<li class='story'><a href=" +
       link +
@@ -56,16 +57,16 @@ $(function() {
       "</p></a></li>"
     );
   }
+  function getApiUrl(section) {
+    //returns proper url link given the section name
+    const linkStart = "https://api.nytimes.com/svc/topstories/v2/",
+      linkEnd = ".json?api-key=",
+      apiKey = "NCDiZQkQNXxf2tNaiVx4oiQBxNeGjpx9";
+    return linkStart + section + linkEnd + apiKey;
+  }
 
-  // MAIN CODE
-  //Selector Event Listener
-  $(".selector-container").on("change", "#selector", function() {
-    const sectionName = $(this).val();
-    if (sectionName !== "") {
-      //Resizes the header before the initial API request
-      $(".site-header").removeClass("full-sized");
-      //Attempts to load the articles
-      loadArticles(sectionName);
-    }
-  });
+  function errorMessage() {
+    //returns error message string
+    return "<li class=errorMessage>Ooops something went wrong :(</li>";
+  }
 });
