@@ -10,6 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Emre",
+  "repository": "https://github.com/ekaynak94/project-02-Instanews",
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.26.3",

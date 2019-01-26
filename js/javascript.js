@@ -36,10 +36,10 @@ $(function() {
   function processResults(results) {
     $.each(results, function(key, value) {
       //loops through results
-      if (value.multimedia[0] !== undefined) {
+      if (value.multimedia[4] !== undefined) {
         //selects stories with images
         $(".article-list").append(
-          storyHtml(value.url, value.multimedia[0].url, value.abstract) //generates the necessary html code for the li element
+          storyHtml(value.url, value.multimedia[4].url, value.abstract) //generates the necessary html code for the li element
         );
       }
     });
@@ -48,7 +48,7 @@ $(function() {
   function storyHtml(link, img, text) {
     //returns html code for a li element for the article-list
     return (
-      "<li class='story'><a href=" +
+      "<li class='story'><a target='_blank' href=" +
       link +
       "><img src=" +
       img +
