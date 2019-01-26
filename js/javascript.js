@@ -1,4 +1,9 @@
 $(function() {
+  //variables
+  const numOfArticles = 12,
+    loader = $("#loading"),
+    list = $(".article-list");
+
   // MAIN CODE
   //Selector Event Listener
   $(".selector-container").on("change", "#selector", function() {
@@ -14,8 +19,8 @@ $(function() {
   //functions
   function loadArticles(section) {
     //Does an API request and loads content depending on the result
-    $("#loading").removeClass("loaded"); //Adds loading img
-    $(".article-list").empty(); //Empties the contents of the article-list
+    loader.removeClass("loaded"); //Adds loading img
+    list.empty(); //Empties the contents of the article-list
     $.ajax({
       //Api Data Request
       method: "GET",
@@ -23,37 +28,46 @@ $(function() {
       dataType: "json"
     })
       .done(function(data) {
-        processResults(data.results); //Executes necessary instructions after success
+        //adds numOfArticles amount of articles into html code after success
+        const articles = pickArticles(data.results, numOfArticles);
+        for (let i = 0; i < numOfArticles; i++) {
+          list.append(
+            articleHtml(articles.url[i], articles.img[i], articles.abs[i])
+          );
+        }
       })
       .fail(function() {
-        $(".article-list").append(errorMessage()); //generates hmtl line for an error message
+        list.append(errorMessage()); //generates hmtl line for an error message
       })
       .always(function() {
-        $("#loading").addClass("loaded"); //removes loading img
+        loader.addClass("loaded"); //removes loading img
       });
   }
 
-  function processResults(results) {
+  function pickArticles(results, articles) {
+    let index = 0;
+    let obj = { url: [], img: [], abs: [] };
     $.each(results, function(key, value) {
       //loops through results
-      if (value.multimedia[4] !== undefined) {
-        //selects stories with images
-        $(".article-list").append(
-          storyHtml(value.url, value.multimedia[4].url, value.abstract) //generates the necessary html code for the li element
-        );
+      if (value.multimedia[0] !== undefined && index < articles) {
+        obj.url[index] = value.url;
+        obj.img[index] = value.multimedia[0].url;
+        obj.abs[index] = value.abstract;
+        index++;
       }
     });
+    return obj;
   }
 
-  function storyHtml(link, img, text) {
+  function articleHtml(url, img, abs) {
     //returns html code for a li element for the article-list
     return (
       "<li class='story'><a target='_blank' href=" +
-      link +
+      url +
       "><img src=" +
       img +
       " alt='article picture'><p class='abstract'>" +
-      text +
+      abs +
       "</p></a></li>"
     );
   }
