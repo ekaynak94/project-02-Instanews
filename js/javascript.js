@@ -1,6 +1,6 @@
 $(function() {
   //variables
-  const numOfArticles = 12,
+  const numOfArticles = 12, //maximum number of articles to be loaded to the site
     loader = $("#loading"),
     list = $(".article-list");
 
@@ -45,13 +45,14 @@ $(function() {
   }
 
   function pickArticles(results, articles) {
+    //picks 'articles' number of results and returns an object containing 3 arrays for page urls,img urls and abstracts for the articles
     let index = 0;
     let obj = { url: [], img: [], abs: [] };
     $.each(results, function(key, value) {
       //loops through results
-      if (value.multimedia[0] !== undefined && index < articles) {
+      if (value.multimedia[4] !== undefined && index < articles) {
         obj.url[index] = value.url;
-        obj.img[index] = value.multimedia[0].url;
+        obj.img[index] = value.multimedia[4].url;
         obj.abs[index] = value.abstract;
         index++;
       }
@@ -62,11 +63,11 @@ $(function() {
   function articleHtml(url, img, abs) {
     //returns html code for a li element for the article-list
     return (
-      "<li class='story'><a target='_blank' href=" +
-      url +
-      "><img src=" +
+      "<li style='background-image:url(" +
       img +
-      " alt='article picture'><p class='abstract'>" +
+      ")' class='story'><a target='_blank' href=" +
+      url +
+      "><p class='abstract'>" +
       abs +
       "</p></a></li>"
     );

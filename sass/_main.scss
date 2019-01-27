@@ -6,10 +6,6 @@ body {
   font-family: $font;
   font-size: $base-font-size;
   text-align: center;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: space-between;
 }
 
 a {
@@ -17,24 +13,9 @@ a {
   text-decoration: none;
 }
 
-.flex-box {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-}
-
-.site-header {
-  width: 100%;
-  height: 100%;
-  @extend flex-box;
-}
-.header-container {
-  @extend flex-box;
-}
-
+//loader
 #loading {
-  height: 10%;
+  height: 70px;
   width: auto;
   z-index: 10;
   position: absolute;
@@ -42,7 +23,11 @@ a {
   left: 50%;
   transform: translate(-50%, 0);
 }
+.loaded {
+  display: none;
+}
 
+//footer
 .site-footer {
   width: 100%;
   padding: 2em 0;
@@ -52,6 +37,32 @@ a {
   }
 }
 
-.loaded {
-  display: none;
+//header
+
+//News list
+.article-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.story {
+  flex: 1 0 50%;
+  position: relative;
+  overflow: hidden;
+  height: 400px;
+  width: 50%;
+  background-size: cover;
+  background-position: center;
+  p {
+    text-align: left;
+    z-index: 5;
+    position: absolute;
+    background: linear-gradient(rgba(0, 0, 0, 0.75));
+    bottom: 0;
+    left: 0;
+    line-height: 1.5;
+    padding: 0.4em;
+  }
 }
