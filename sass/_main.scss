@@ -1,34 +1,7 @@
-body {
-  height: 100vh;
-  border: 2px solid red;
-  background-color: $background-color;
-  color: $text-color;
-  font-family: $font;
-  font-size: $base-font-size;
-  text-align: center;
-}
-
-a {
-  color: $text-color;
-  text-decoration: none;
-}
-
-//loader
-#loading {
-  height: 70px;
-  width: auto;
-  z-index: 10;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-.loaded {
-  display: none;
-}
-
 //footer
 .site-footer {
+  @extend .container;
+  font-size: $small-font-ratio * 1em;
   width: 100%;
   padding: 2em 0;
   color: $footer-color;
@@ -38,21 +11,39 @@ a {
 }
 
 //header
+.site-header {
+  @extend .container;
+  @include flexbox(column, nowrap, center, center);
+  img {
+    margin: 2em;
+  }
+}
+.selector-container {
+  p {
+    font-size: $small-font-ratio * 1em;
+  }
+  select {
+    font-size: 1.1em;
+    margin: 1em 0;
+  }
+}
 
 //News list
+.content {
+  @extend .container;
+  width: 100%;
+}
 .article-list {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
+  @include flexbox(row, wrap, center, center);
 }
 
 .story {
   flex: 1 0 50%;
+  @include desktop {
+    flex: 1 0 25%;
+  }
   position: relative;
-  overflow: hidden;
-  height: 400px;
-  width: 50%;
+  height: $article-height;
   background-size: cover;
   background-position: center;
   p {

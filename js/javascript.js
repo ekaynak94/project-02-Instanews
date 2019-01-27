@@ -10,7 +10,7 @@ $(function() {
     const sectionName = $(this).val();
     if (sectionName !== "") {
       //Resizes the header before the initial API request
-      $(".site-header").removeClass("full-sized");
+      $(".site-header").addClass("post-select");
       //Attempts to load the articles
       loadArticles(sectionName);
     }
