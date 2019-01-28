@@ -1,28 +1,23 @@
-//footer
-.site-footer {
-  @extend .container;
-  font-size: $small-font-ratio * 1em;
-  margin: 3em auto;
-  color: $footer-color;
-  span {
-    text-transform: uppercase;
+//header
+.selector-container {
+  p {
+    font-size: $small-font-ratio * 1em;
   }
-  @include desktop {
-    text-align: left;
-    padding: 0 5em;
+  select {
+    font-size: $base-font-size * 1.1;
+    margin: 0.8em 0;
   }
 }
 
-//header
 .site-header {
   @extend .container;
+  margin: 1em 0;
+  @include flexbox(row, nowrap, center, center);
   height: 85vh;
   img {
-    margin: 2em;
+    margin: 1em;
   }
-  @include flexbox(row, nowrap, center, center);
   @include tablet {
-    justify-content: flex-start;
     .header-container {
       @include flexbox(row, nowrap, center, center);
       img {
@@ -35,34 +30,37 @@
     justify-content: flex-start;
     .header-container {
       @include flexbox(row, nowrap, center, center);
+      img {
+        margin-right: 5em;
+      }
     }
-  }
-}
-
-.selector-container {
-  font-size: $small-font-ratio * 1em;
-
-  select {
-    margin: 0.8em 0;
   }
 }
 
 .post-select {
   height: auto;
+  img {
+    height: 2 * $minim-logo-size;
+    width: auto;
+  }
   @include tablet {
+    justify-content: flex-start;
     .header-container {
       img {
-        height: 70px;
+        height: $minim-logo-size;
         width: auto;
-        padding: 0 3em;
+        padding-left: 5em;
+        padding-right: 5em;
       }
     }
   }
   @include desktop {
     .header-container {
       img {
-        height: 70px;
+        height: $minim-logo-size;
         width: auto;
+        padding-left: 2.5em;
+        padding-right: 2.5em;
       }
     }
   }
@@ -70,7 +68,6 @@
 //News list
 .content {
   @extend .container;
-  margin-top: 2em;
 }
 .article-list {
   @include flexbox(row, wrap, center, center);
@@ -94,5 +91,20 @@
     left: 0;
     line-height: 1.5;
     padding: 0.4em;
+  }
+}
+
+//footer
+.site-footer {
+  @extend .container;
+  font-size: $small-font-ratio * 1.1em;
+  margin: 3em auto;
+  color: $footer-color;
+  span {
+    text-transform: uppercase;
+  }
+  @include desktop {
+    text-align: left;
+    padding: 0 5em;
   }
 }

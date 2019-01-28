@@ -59,7 +59,7 @@ $(function() {
     });
     return obj;
   }
-
+  //<li><a href=''></a><a>
   function articleHtml(url, img, abs) {
     //returns html code for a li element for the article-list
     return (
