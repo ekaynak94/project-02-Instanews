@@ -2,36 +2,75 @@
 .site-footer {
   @extend .container;
   font-size: $small-font-ratio * 1em;
-  width: 100%;
-  padding: 2em 0;
+  margin: 3em auto;
   color: $footer-color;
   span {
     text-transform: uppercase;
+  }
+  @include desktop {
+    text-align: left;
+    padding: 0 5em;
   }
 }
 
 //header
 .site-header {
   @extend .container;
-  @include flexbox(column, nowrap, center, center);
+  height: 85vh;
   img {
     margin: 2em;
   }
-}
-.selector-container {
-  p {
-    font-size: $small-font-ratio * 1em;
+  @include flexbox(row, nowrap, center, center);
+  @include tablet {
+    justify-content: flex-start;
+    .header-container {
+      @include flexbox(row, nowrap, center, center);
+      img {
+        width: 25vw;
+        height: auto;
+      }
+    }
   }
-  select {
-    font-size: 1.1em;
-    margin: 1em 0;
+  @include desktop {
+    justify-content: flex-start;
+    .header-container {
+      @include flexbox(row, nowrap, center, center);
+    }
   }
 }
 
+.selector-container {
+  font-size: $small-font-ratio * 1em;
+
+  select {
+    margin: 0.8em 0;
+  }
+}
+
+.post-select {
+  height: auto;
+  @include tablet {
+    .header-container {
+      img {
+        height: 70px;
+        width: auto;
+        padding: 0 3em;
+      }
+    }
+  }
+  @include desktop {
+    .header-container {
+      img {
+        height: 70px;
+        width: auto;
+      }
+    }
+  }
+}
 //News list
 .content {
   @extend .container;
-  width: 100%;
+  margin-top: 2em;
 }
 .article-list {
   @include flexbox(row, wrap, center, center);
