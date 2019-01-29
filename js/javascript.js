@@ -2,7 +2,8 @@ $(function() {
   //variables
   const numOfArticles = 12, //maximum number of articles to be loaded to the site
     loader = $("#loading"),
-    list = $(".article-list");
+    list = $(".article-list"),
+    errorMessage = "<p class='errorMessage'>Failed to load data</p>";
 
   // MAIN CODE
   //Selector Event Listener
@@ -29,47 +30,38 @@ $(function() {
     })
       .done(function(data) {
         //adds numOfArticles amount of articles into html code after success
-        const articles = pickArticles(data.results, numOfArticles);
-        for (let i = 0; i < numOfArticles; i++) {
+        $.each(pickArticles(data.results, numOfArticles), function(key, value) {
           list.append(
-            articleHtml(articles.url[i], articles.img[i], articles.abs[i])
+            articleHtml(value.url, value.multimedia[4].url, value.abstract)
           );
-        }
+        });
       })
       .fail(function() {
-        list.append(errorMessage()); //generates hmtl line for an error message
+        list.append(errorMessage); //generates hmtl line for an error message
       })
       .always(function() {
         loader.addClass("loaded"); //removes loading img
       });
   }
 
-  function pickArticles(results, articles) {
-    //picks 'articles' number of results and returns an object containing 3 arrays for page urls,img urls and abstracts for the articles
-    let index = 0;
-    let obj = { url: [], img: [], abs: [] };
-    $.each(results, function(key, value) {
-      //loops through results
-      if (value.multimedia[4] !== undefined && index < articles) {
-        obj.url[index] = value.url;
-        obj.img[index] = value.multimedia[4].url;
-        obj.abs[index] = value.abstract;
-        index++;
-      }
-    });
-    return obj;
+  function pickArticles(results, number) {
+    //picks the first 12 articles that have images in them from the results
+    return results
+      .filter(function(argument) {
+        return argument.multimedia[4] !== undefined;
+      })
+      .slice(0, number);
   }
-  //<li><a href=''></a><a>
   function articleHtml(url, img, abs) {
     //returns html code for a li element for the article-list
     return (
-      "<li style='background-image:url(" +
-      img +
-      ")' class='story'><a target='_blank' href=" +
+      "<a class='story' target='_blank' href=" +
       url +
-      "><p class='abstract'>" +
+      " style='background-image:url(" +
+      img +
+      ")'><p class='abstract'>" +
       abs +
-      "</p></a></li>"
+      "</p></a>"
     );
   }
   function getApiUrl(section) {
@@ -78,10 +70,5 @@ $(function() {
       linkEnd = ".json?api-key=",
       apiKey = "NCDiZQkQNXxf2tNaiVx4oiQBxNeGjpx9";
     return linkStart + section + linkEnd + apiKey;
-  }
-
-  function errorMessage() {
-    //returns error message string
-    return "<li class=errorMessage>Ooops something went wrong :(</li>";
   }
 });

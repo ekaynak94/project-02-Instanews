@@ -66,10 +66,9 @@
   }
 }
 //News list
-.content {
-  @extend .container;
-}
+
 .article-list {
+  @extend .container;
   @include flexbox(row, wrap, center, center);
 }
 
