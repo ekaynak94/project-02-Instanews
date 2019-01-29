@@ -18,7 +18,7 @@ a {
 
 //loader
 #loading {
-  height: $loadeer-height;
+  height: $loader-height;
   width: auto;
   z-index: 10;
   position: absolute;
@@ -28,4 +28,9 @@ a {
 }
 .loaded {
   display: none;
+}
+
+img,
+select {
+  transition: all 1s ease-in-out 0.5s;
 }
