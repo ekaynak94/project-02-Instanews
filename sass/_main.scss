@@ -11,7 +11,7 @@
 
 .site-header {
   @extend .container;
-  margin: 1em 0;
+  margin: 1em auto;
   @include flexbox(row, nowrap, center, center);
   height: 85vh;
   img {
@@ -66,7 +66,9 @@
   }
 }
 //News list
-
+.content {
+  @extend .container;
+}
 .article-list {
   @extend .container;
   @include flexbox(row, wrap, center, center);
