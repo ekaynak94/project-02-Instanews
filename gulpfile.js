@@ -6,12 +6,14 @@ const gulp = require("gulp"),
   eslint = require("gulp-eslint"),
   sass = require("gulp-sass"),
   autoprefixer = require("gulp-autoprefixer"),
-  prettyError = require("gulp-prettyerror");
+  prettyError = require("gulp-prettyerror"),
+  babel = require("gulp-babel");
 
 //saves a minified js file in build directory after linting
 gulp.task("min-js", function() {
   return gulp
     .src("./js/*.js")
+    .pipe(babel())
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError())
