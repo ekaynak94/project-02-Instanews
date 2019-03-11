@@ -1,5 +1,5 @@
 {
-  "name": "project-02",
+  "name": "Instanews",
   "version": "1.0.0",
   "description": "Instanews project for RED Academy",
   "main": "index.js",
@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Emre",
+  "author": "Emre Kaynak",
   "repository": "https://github.com/ekaynak94/project-02-Instanews",
   "license": "ISC",
   "devDependencies": {
