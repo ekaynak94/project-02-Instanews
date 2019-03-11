@@ -75,7 +75,10 @@
 }
 
 .story {
-  flex: 1 0 50%;
+  flex: 1 0 100%;
+  @include tablet {
+    flex: 1 0 50%;
+  }
   @include desktop {
     flex: 1 0 25%;
   }
@@ -89,7 +92,6 @@
     padding: 0.4em;
     line-height: 1.5;
     text-align: left;
-    z-index: 5;
     position: absolute;
     background: linear-gradient(rgba(0, 0, 0, 0.75));
     bottom: 0;
